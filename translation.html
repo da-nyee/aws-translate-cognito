@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>201632230 컴퓨터공학과 이다은</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/themify-icons.css">
+        <link rel="stylesheet" href="vendors/fontawesome/css/all.min.css">
+        <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+        <link rel="stylesheet" href="vendors/animate-css/animate.css">
+        <!-- main css -->
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/responsive.css">
+    </head>
+    <body>
+        <!--================Header Menu Area =================-->
+        <header class="header_area">    
+            <div class="main_menu">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                            <ul class="nav navbar-nav menu_nav ml-auto">
+                                <li class="nav-item"><a class="nav-link" href="index.html">홈</a></li> 
+                                <li class="nav-item"><a class="nav-link" href="translation.html">번역 서비스</a></li> 
+                                <li class="nav-item"><a class="nav-link" href="album.html">앨범 서비스</a></li>     
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!--================Header Menu Area =================-->
+
+        <!--================Hero Banner Area Start =================-->
+        <section class="hero-banner d-flex align-items-center">
+            <div class="container text-center">
+                <h2>번역 서비스</h2>
+                <nav aria-label="breadcrumb" class="banner-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">AWS</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Amazon Translate</li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
+        <!--================Hero Banner Area End =================-->
+
+        <!--================Translation =================-->
+        <section class="service-area area-padding">
+            <div class="container">
+                <h1>
+                    번역할 내용을 입력하고 영어/스페인어 번역하기를 클릭해보세요!<br/>
+                    Amazon Translate로 번역된 내용이 나타납니다. 🙂
+                </h1>
+                <br/>
+                <div class="form-group mt-10">
+                    <textarea class="single-textarea" id="beforeTranslation" placeholder="번역할 내용을 입력해주세요!" onfocus="this.placeholder = ''" onblur="this.placeholder = '번역할 내용을 입력해주세요!'" required></textarea>
+                </div>
+                <div class="form-group mt-10">
+                    <textarea class="single-textarea" id="afterEnglishTranslation" placeholder="영어로 번역된 내용이 나타납니다." onfocus="this.placeholder = ''" onblur="this.placeholder = '영어로 번역된 내용이 나타납니다.'" readonly></textarea>
+                </div>
+                <div class="form-group mt-3">
+                    <button onclick="doEnglishTranslation()" type="submit" class="button button-contactForm">영어 번역하기</button>
+                </div>
+                <div class="form-group mt-10">
+                    <textarea class="single-textarea" id="afterSpanishTranslation" placeholder="스페인어로 번역된 내용이 나타납니다." onfocus="this.placeholder = ''" onblur="this.placeholder = '스페인어로 번역된 내용이 나타납니다.'" readonly></textarea>
+                </div>
+                <div class="form-group mt-3">
+                    <button onclick="doSpanishTranslation()" type="submit" class="button button-contactForm">스페인어 번역하기</button>
+                </div>
+            </div>
+        </section>
+        <!--================Translation End =================-->
+
+        <!-- Optional JavaScript -->
+        <script type="text/javascript">
+            let beforeTranslation = document.querySelector('#beforeTranslation');
+            let afterEnglishTranslation = document.querySelector('#afterEnglishTranslation');
+            let afterSpanishTranslation = document.querySelector('#afterSpanishTranslation');
+
+            function doEnglishTranslation() {
+                afterEnglishTranslation.value = "영어 번역 로딩 중입니다.";
+                fetch("https://iygnq5cwhf.execute-api.ap-northeast-2.amazonaws.com/default/lambda_for_english_translate_service", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        text: beforeTranslation.value
+                    })
+                }).then(function(response) {
+                    return response.text().then(function(text) {
+                        afterEnglishTranslation.value = text;
+                    });
+                })
+            }
+
+            function doSpanishTranslation() {
+                afterSpanishTranslation.value = "스페인어 번역 로딩 중입니다.";
+                fetch("https://m4sr84jrfc.execute-api.ap-northeast-2.amazonaws.com/default/lambda_for_spanish_translate_service", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        text: beforeTranslation.value
+                    })
+                }).then(function(response) {
+                    return response.text().then(function(text) {
+                        afterSpanishTranslation.value = text;
+                    });
+                })
+            }
+        </script>
+
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="js/jquery-2.2.4.min.js"></script>
+        <script src="js/popper.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="js/jquery.ajaxchimp.min.js"></script>
+        <script src="js/waypoints.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="js/contact.js"></script>
+        <script src="js/jquery.form.js"></script>
+        <script src="js/jquery.validate.min.js"></script>
+        <script src="js/mail-script.js"></script>
+        <script src="js/theme.js"></script>
+    </body>
+</html>
