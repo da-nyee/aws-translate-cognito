@@ -1,5 +1,10 @@
 ## Translate and Cognito (ERP Project Final Project)
 
+### Preview
+![translate_cognito](./img/translate_cognito.PNG)
+![translate_cognito_translation](./img/translate_cognito_translation.PNG)
+![translate_cognito_album](./img/translate_cognito_album.PNG)
+
 ### Architecture
 ![translate_cognito_service_architecture](./img/translate_cognito_service_architecture.png)
 
